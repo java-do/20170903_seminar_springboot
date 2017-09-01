@@ -117,9 +117,6 @@ package jp.javado.springboot;
 public class Customer {
     private long id;
     private String firstName, lastName;
-    
-    public Customer() {
-    }
 
     public Customer(long id, String firstName, String lastName) {
         this.id = id;
@@ -134,29 +131,6 @@ public class Customer {
                 id, firstName, lastName);
     }
 
-    public long getId() {
-        return id;
-    }
-    
-    public void setId(long id) {
-        this.id = id;
-    }
-    
-    public String getFirstName() {
-        return this.firstName;
-    }
-    
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    
-    public String getLastName() {
-        return this.lastName;
-    }
-    
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 }
 ```
 
@@ -363,7 +337,7 @@ $ mvn spring-boot:run
 ```
 
 ## 自動でクラスにDBの値を設定
-さきほどはラムダ式を使って値を取得してCustomerクラスに設定していましたが、もっと便利に書く方法があります。
+さきほどはラムダ式を使って値を取得してCustomerクラスに設定していましたが、もっと便利に書く方法もあります。
 
 BeanPropertyRowMapperクラスを使うと、指定したクラス（ここではCustomerクラス）に取得した値を自動的に設定してくれます。
 
@@ -380,6 +354,57 @@ jdbcTemplate.query()の箇所を以下に書き換えます。
 ```
         List<Customer> customerList = jdbcTemplate.query(selectSql, new Object[] { "Josh" }, new BeanPropertyRowMapper<>(Customer.class) );
 
+```
+
+Customerクラスにsetter,getter,constructerを追加します。
+
+```
+package jp.javado.springboot;
+
+public class Customer {
+    private long id;
+    private String firstName, lastName;
+    
+    public Customer() {
+    }
+
+    public Customer(long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Customer[id=%d, firstName='%s', lastName='%s']",
+                id, firstName, lastName);
+    }
+
+    public long getId() {
+        return id;
+    }
+    
+    public void setId(long id) {
+        this.id = id;
+    }
+    
+    public String getFirstName() {
+        return this.firstName;
+    }
+    
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    
+    public String getLastName() {
+        return this.lastName;
+    }
+    
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+}
 ```
 
 コマンドで実行してみると、
