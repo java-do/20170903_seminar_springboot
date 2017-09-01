@@ -22,6 +22,27 @@ mvn -B archetype:generate \
  - springboot-jdbc
  - springboot-jdbc/src
  - springboot-jdbc/pom.xml
+ 
+ファイル・フォルダ構成は以下になっています。
+
+```
+springboot-jdbc/ 
+├── pom.xml
+└── src
+    ├── main
+    │   └── java
+    │       └── jp
+    │           └── javado
+    │               └── springboot
+    │                   └── App.java
+    └── test
+        └── java
+            └── jp
+                └── javado
+                    └── springboot
+                        └── AppTest.java
+```
+
 
 ### 作成したプロジェクトを統合開発環境に取り込んでみよう
 
